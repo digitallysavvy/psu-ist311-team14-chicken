@@ -15,13 +15,12 @@ import javax.swing.*;
 public class BoardObject extends JLabel{
     
     ImageIcon image;
-    int currentX, currentY;
+    int x, y; //dimensions
     int speed; //delay value for timer
     
     
     public BoardObject(ImageIcon i){
         image = i;
-        JLabel s = new JLabel("");
         setIcon(image);
     }
     
