@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2014 Hermes Frangoudis (hwf5000), Aldrich Fung.
+ * Copyright 2014 Aldrich Fung, Hermes Frangoudis (hwf5000).
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,31 +25,35 @@ package chicken;
 
 import java.awt.Point;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 /**
  *
- * @author hwf5000, Aldrich
+ * @author Aldrich, hwf5000
  */
-public abstract class BoardObj extends JLabel {
-    
-    Point location;
-    int height;
-    int width;
-    int speed;
-    ImageIcon graphic;
-    
-    public BoardObj(ImageIcon g, int s){
-        graphic = g;
-        speed = s;
-        height = graphic.getIconHeight();
-        width = graphic.getIconWidth();
+public class PowerUp extends BoardObj{
+
+    public PowerUp(ImageIcon g) {
+        super(g, 0);
     }
-    
-    // All board objects must be able to detect collision with another object.
-    abstract boolean collisionCheck(BoardObj obj1, BoardObj obj2);
-    
-    // Most board objects move around in some way .
-    abstract void moveTo(Point p);
+
+    /**
+     *
+     * @param obj1
+     * @param obj2
+     * @return
+     */
+    @Override
+    public boolean collisionCheck(BoardObj obj1, BoardObj obj2) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     *
+     * @param p
+     */
+    @Override
+    public void moveTo(Point p) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

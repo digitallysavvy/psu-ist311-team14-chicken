@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2014 Hermes Frangoudis (hwf5000), Aldrich Fung.
+ * Copyright 2014 Aldrich Fung, Hermes Frangoudis (hwf5000).
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,31 +25,35 @@ package chicken;
 
 import java.awt.Point;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 /**
  *
- * @author hwf5000, Aldrich
+ * @author Aldrich, hwf5000
  */
-public abstract class BoardObj extends JLabel {
+public class EnemyBullet extends BoardObj{
     
-    Point location;
-    int height;
-    int width;
-    int speed;
-    ImageIcon graphic;
-    
-    public BoardObj(ImageIcon g, int s){
-        graphic = g;
-        speed = s;
-        height = graphic.getIconHeight();
-        width = graphic.getIconWidth();
+    public EnemyBullet(ImageIcon g, int s){
+        super(g, s);
     }
     
-    // All board objects must be able to detect collision with another object.
-    abstract boolean collisionCheck(BoardObj obj1, BoardObj obj2);
+    /**
+     *
+     * @param obj1
+     * @param obj2
+     * @return 
+     */
+    @Override
+    public boolean collisionCheck (BoardObj obj1, BoardObj obj2){
+        return false;
+    }
     
-    // Most board objects move around in some way .
-    abstract void moveTo(Point p);
+    /**
+     *
+     * @param p
+     */
+    @Override
+    public void moveTo(Point p){
+        
+    }
     
 }
