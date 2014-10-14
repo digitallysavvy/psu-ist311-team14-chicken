@@ -47,9 +47,9 @@ public abstract class BoardObj extends JLabel {
     }
     
     // All board objects must be able to detect collision with another object.
-    abstract boolean collisionCheck(BoardObj obj1, BoardObj obj2);
+    public abstract boolean collisionCheck(BoardObj obj1, BoardObj obj2);
     
     // Most board objects move around in some way .
-    abstract void moveTo(Point p);
+    public abstract void moveTo(Point p);
     
 }
