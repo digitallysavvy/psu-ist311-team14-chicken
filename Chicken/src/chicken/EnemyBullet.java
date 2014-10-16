@@ -39,10 +39,10 @@ public class EnemyBullet extends BoardObj{
     
     /**
      *
-     * @param p
+     * @param direction
      */
     @Override
-    public void moveTo(Point p){
+    public void moveTo(Direction direction){
         
     }
     

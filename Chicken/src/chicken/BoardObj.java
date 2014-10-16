@@ -33,6 +33,10 @@ import javax.swing.JLabel;
  */
 public abstract class BoardObj extends JLabel {
     
+    public enum Direction {
+        UP, LEFT, RIGHT, DOWN
+    }
+    
     Point location;
     int height;
     int width;
@@ -48,6 +52,6 @@ public abstract class BoardObj extends JLabel {
     
     
     // Most board objects move around in some way .
-    public abstract void moveTo(Point p);
+    public abstract void moveTo(Direction d);
         
 }

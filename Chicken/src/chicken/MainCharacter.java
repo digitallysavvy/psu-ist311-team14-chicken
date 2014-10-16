@@ -23,7 +23,6 @@
  */
 package chicken;
 
-import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.ImageIcon;
@@ -34,6 +33,7 @@ import javax.swing.ImageIcon;
  */
 public class MainCharacter extends BoardObj implements KeyListener{
 
+    
     public MainCharacter(ImageIcon g, int s) {
         super(g, s);
     }
@@ -41,10 +41,32 @@ public class MainCharacter extends BoardObj implements KeyListener{
 
     /**
      *
-     * @param p
+     * @param direction
      */
     @Override
-    public void moveTo(Point p) {
+    public void moveTo(Direction direction) {
+        switch(direction){
+        case UP:
+            //Sprite animation here
+            this.location.y += 10;
+            break;
+        
+        case LEFT:
+            //Sprite animation here
+            this.location.x -=10;
+            break;
+            
+        case RIGHT:
+            this.location.x += 10;
+            break;
+            
+        case DOWN:
+            //Sprite animation here
+            this.location.y -=10;
+            break;
+                
+    }
+        
         
     }
 
@@ -59,26 +81,22 @@ public class MainCharacter extends BoardObj implements KeyListener{
         switch(e.getKeyCode()){
             case KeyEvent.VK_UP:
             case KeyEvent.VK_W:
-                //Sprite animation here
-               this.location.y += 10;
+               
                 break;
                 
             case KeyEvent.VK_LEFT:
             case KeyEvent.VK_A:
-                //Sprite animation here
-                this.location.x -=10;
+
                 break;
                 
             case KeyEvent.VK_RIGHT:
             case KeyEvent.VK_D:
-                //Sprite animation here
-                this.location.x += 10;
+
                 break;
                 
             case KeyEvent.VK_DOWN:
             case KeyEvent.VK_S:
-                //Sprite animation here
-                this.location.y -=10;
+
                 break;
         }
         

@@ -38,10 +38,10 @@ public class PowerUp extends BoardObj{
 
     /**
      *
-     * @param p
+     * @param direction
      */
     @Override
-    public void moveTo(Point p) {
+    public void moveTo(Direction direction) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
