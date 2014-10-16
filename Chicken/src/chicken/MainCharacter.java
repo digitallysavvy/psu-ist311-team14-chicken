@@ -24,13 +24,15 @@
 package chicken;
 
 import java.awt.Point;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.ImageIcon;
 
 /**
  *
  * @author Aldrich, hwf5000
  */
-public class MainCharacter extends BoardObj {
+public class MainCharacter extends BoardObj implements KeyListener{
 
     public MainCharacter(ImageIcon g, int s) {
         super(g, s);
@@ -38,13 +40,13 @@ public class MainCharacter extends BoardObj {
 
     /**
      *
-     * @param obj1
-     * @param obj2
+     * @param obj
      * @return
      */
-    @Override
-    public boolean collisionCheck(BoardObj obj1, BoardObj obj2) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+    public boolean collisionCheck() {
+        //Implement in GameBoard instead
+        return false;
     }
 
     /**
@@ -53,7 +55,50 @@ public class MainCharacter extends BoardObj {
      */
     @Override
     public void moveTo(Point p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+        switch(e.getKeyCode()){
+            case KeyEvent.VK_UP:
+            case KeyEvent.VK_W:
+                //Sprite animation here
+               this.location.y += 10;
+                break;
+                
+            case KeyEvent.VK_LEFT:
+            case KeyEvent.VK_A:
+                //Sprite animation here
+                this.location.x -=10;
+                break;
+                
+            case KeyEvent.VK_RIGHT:
+            case KeyEvent.VK_D:
+                //Sprite animation here
+                this.location.x += 10;
+                break;
+                
+            case KeyEvent.VK_DOWN:
+            case KeyEvent.VK_S:
+                //Sprite animation here
+                this.location.y -=10;
+                break;
+        }
+        
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        
+    }
+    
+    
     
 }
