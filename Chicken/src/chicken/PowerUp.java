@@ -38,17 +38,6 @@ public class PowerUp extends BoardObj{
 
     /**
      *
-     * @param obj1
-     * @param obj2
-     * @return
-     */
-    @Override
-    public boolean collisionCheck(BoardObj obj1, BoardObj obj2) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    /**
-     *
      * @param p
      */
     @Override

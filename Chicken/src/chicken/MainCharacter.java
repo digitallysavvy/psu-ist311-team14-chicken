@@ -38,16 +38,6 @@ public class MainCharacter extends BoardObj implements KeyListener{
         super(g, s);
     }
 
-    /**
-     *
-     * @param obj
-     * @return
-     */
-
-    public boolean collisionCheck() {
-        //Implement in GameBoard instead
-        return false;
-    }
 
     /**
      *

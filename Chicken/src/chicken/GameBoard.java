@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2014 Aldrich Fung, Hermes Frangoudis (hwf5000).
+ * Copyright 2014 macbook.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,27 +23,32 @@
  */
 package chicken;
 
-import java.awt.Point;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.Timer;
 
 /**
  *
- * @author Aldrich, hwf5000
+ * @author macbook
  */
-public class EnemyBullet extends BoardObj{
-    
-    public EnemyBullet(ImageIcon g, int s){
-        super(g, s);
+public class GameBoard {
+
+    int height;
+    int width;
+    ImageIcon background;
+    MainCharacter yoshi;
+    Timer movementTimer;
+    Timer powerUptimer;
+    ArrayList<BoardObj> enemies;
+    PowerUp powerUp;
+
+    public GameBoard() {
+
     }
-   
-    
-    /**
-     *
-     * @param p
-     */
-    @Override
-    public void moveTo(Point p){
-        
+
+    public boolean collisionCheck() {
+        //check if main character has 
+        return false;
     }
-    
+
 }
