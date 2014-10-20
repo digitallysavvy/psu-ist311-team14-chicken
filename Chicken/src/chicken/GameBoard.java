@@ -2,6 +2,7 @@
 import chicken.BoardObj;
 import chicken.MainCharacter;
 import chicken.PowerUp;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
@@ -43,6 +44,8 @@ public class GameBoard {
 
     int height;
     int width;
+    int row;
+    int col;
     ImageIcon background;
     MainCharacter yoshi;
     Timer movementTimer;
@@ -51,7 +54,17 @@ public class GameBoard {
     PowerUp powerUp;
 
     public GameBoard() {
+        row = 20;
+        col = 30;
+        BoardObj[][] panelHolder = new BoardObj[row][col];    
+        panelHolder.setLayout(new GridLayout(row,col));
 
+        for(int m = 0; m < row; m++) {
+            for(int n = 0; n < col; n++) {
+                panelHolder[m][n] = null;
+                add(panelHolder[m][n]);
+   }
+}
     }
 
     public boolean collisionCheck() {
