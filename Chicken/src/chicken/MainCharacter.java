@@ -34,8 +34,8 @@ import javax.swing.ImageIcon;
 public class MainCharacter extends BoardObj implements KeyListener{
 
     
-    public MainCharacter(ImageIcon g, int s) {
-        super(g, s);
+    public MainCharacter(ImageIcon g) {
+        super(g);
     }
 
 
@@ -48,21 +48,20 @@ public class MainCharacter extends BoardObj implements KeyListener{
         switch(direction){
         case UP:
             //Sprite animation here
-            this.location.y += 10;
             break;
         
         case LEFT:
             //Sprite animation here
-            this.location.x -=10;
+
             break;
             
         case RIGHT:
-            this.location.x += 10;
+
             break;
             
         case DOWN:
             //Sprite animation here
-            this.location.y -=10;
+
             break;
                 
     }

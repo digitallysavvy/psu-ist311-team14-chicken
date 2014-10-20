@@ -37,17 +37,11 @@ public abstract class BoardObj extends JLabel {
         UP, LEFT, RIGHT, DOWN
     }
     
-    Point location;
-    int height;
-    int width;
-    int speed;
+
     ImageIcon graphic;
     
-    public BoardObj(ImageIcon g, int s){
+    public BoardObj(ImageIcon g){
         graphic = g;
-        speed = s;
-        height = graphic.getIconHeight();
-        width = graphic.getIconWidth();
     }
     
     
