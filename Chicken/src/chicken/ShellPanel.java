@@ -25,6 +25,7 @@ package chicken;
 
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -37,6 +38,7 @@ public class ShellPanel extends JPanel{
     public ShellPanel(){
         super();
         setLayout(new BorderLayout());
-        gameboard = new GameBoard(600,800);
+        gameboard = new GameBoard(SwingUtilities.windowForComponent(this).getHeight(),
+                SwingUtilities.windowForComponent(this).getWidth());
     }
 }
