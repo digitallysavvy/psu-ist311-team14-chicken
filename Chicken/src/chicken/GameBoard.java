@@ -1,12 +1,4 @@
 
-import chicken.BoardObj;
-import chicken.MainCharacter;
-import chicken.PowerUp;
-import java.awt.GridLayout;
-import java.util.ArrayList;
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
-import javax.swing.Timer;
 
 /*
  * The MIT License
@@ -30,11 +22,17 @@ import javax.swing.Timer;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- *
+ */
+
 package chicken;
 
+
+import java.awt.GridLayout;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 import javax.swing.Timer;
 
 /**
@@ -57,6 +55,13 @@ public class GameBoard extends JPanel{
     public GameBoard() {
         row = 20;
         col = 30;
+        ImageIcon g;
+        try {
+            g = new ImageIcon(ImageIO.read(getClass().getResource("images/yoshi.png")));
+        } catch (IOException ex) {
+            g = null;
+        }
+        yoshi = new MainCharacter(g);
         BoardObj[][] panelHolder = new BoardObj[row][col];    
         setLayout(new GridLayout(row,col));
 
