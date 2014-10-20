@@ -32,9 +32,11 @@ import javax.swing.JPanel;
  */
 public class ShellPanel extends JPanel{
     
+    GameBoard gameboard;
     
     public ShellPanel(){
         super();
         setLayout(new BorderLayout());
+        gameboard = new GameBoard(600,800);
     }
 }

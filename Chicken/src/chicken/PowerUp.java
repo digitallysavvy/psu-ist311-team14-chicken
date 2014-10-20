@@ -23,6 +23,7 @@
  */
 package chicken;
 
+import java.awt.Point;
 import javax.swing.ImageIcon;
 
 /**
@@ -31,8 +32,8 @@ import javax.swing.ImageIcon;
  */
 public class PowerUp extends BoardObj{
 
-    public PowerUp(ImageIcon g) {
-        super(g);
+    public PowerUp(ImageIcon g, Point p) {
+        super(g, p);
     }
 
     /**

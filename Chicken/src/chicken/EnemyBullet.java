@@ -23,6 +23,7 @@
  */
 package chicken;
 
+import java.awt.Point;
 import javax.swing.ImageIcon;
 
 /**
@@ -31,8 +32,8 @@ import javax.swing.ImageIcon;
  */
 public class EnemyBullet extends BoardObj{
     
-    public EnemyBullet(ImageIcon g){
-        super(g);
+    public EnemyBullet(ImageIcon g, Point p){
+        super(g, p);
     }
    
     

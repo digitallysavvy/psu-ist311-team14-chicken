@@ -27,7 +27,7 @@
 package chicken;
 
 
-import java.awt.GridLayout;
+import java.awt.Point;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
@@ -43,8 +43,6 @@ public class GameBoard extends JPanel{
 
     int height;
     int width;
-    int row;
-    int col;
     ImageIcon background;
     MainCharacter yoshi;
     Timer movementTimer;
@@ -52,25 +50,17 @@ public class GameBoard extends JPanel{
     ArrayList<BoardObj> enemies;
     PowerUp powerUp;
 
-    public GameBoard() {
-        row = 20;
-        col = 30;
+    public GameBoard(int h, int w) {
         ImageIcon g;
+        height =  h;
+        width = w;
         try {
             g = new ImageIcon(ImageIO.read(getClass().getResource("images/yoshi.png")));
         } catch (IOException ex) {
             g = null;
         }
-        yoshi = new MainCharacter(g);
-        BoardObj[][] panelHolder = new BoardObj[row][col];    
-        setLayout(new GridLayout(row,col));
-
-        for(int m = 0; m < row; m++) {
-            for(int n = 0; n < col; n++) {
-                panelHolder[m][n] = null;
-                add(panelHolder[m][n]);
-   }
-}
+        yoshi = new MainCharacter(g, new Point(0,0));
+  
     }
 
     public boolean collisionCheck() {

@@ -23,6 +23,7 @@
  */
 package chicken;
 
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.ImageIcon;
@@ -34,8 +35,8 @@ import javax.swing.ImageIcon;
 public class MainCharacter extends BoardObj implements KeyListener{
 
     
-    public MainCharacter(ImageIcon g) {
-        super(g);
+    public MainCharacter(ImageIcon g, Point p) {
+        super(g,p);
     }
 
 
