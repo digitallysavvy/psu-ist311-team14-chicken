@@ -42,6 +42,7 @@ public abstract class BoardObj extends JLabel {
     
     public BoardObj(ImageIcon g){
         graphic = g;
+        setIcon(graphic);
     }
     
     
