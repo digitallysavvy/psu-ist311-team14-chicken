@@ -5,6 +5,7 @@ import chicken.PowerUp;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 import javax.swing.Timer;
 
 /*
@@ -40,7 +41,7 @@ import javax.swing.Timer;
  *
  * @author hwf5000, Aldrich
  */
-public class GameBoard {
+public class GameBoard extends JPanel{
 
     int height;
     int width;
@@ -57,7 +58,7 @@ public class GameBoard {
         row = 20;
         col = 30;
         BoardObj[][] panelHolder = new BoardObj[row][col];    
-        panelHolder.setLayout(new GridLayout(row,col));
+        setLayout(new GridLayout(row,col));
 
         for(int m = 0; m < row; m++) {
             for(int n = 0; n < col; n++) {
