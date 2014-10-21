@@ -24,21 +24,18 @@
 package chicken;
 
 import java.awt.Point;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import javax.swing.ImageIcon;
 
 /**
  *
  * @author Aldrich, hwf5000
  */
-public class MainCharacter extends BoardObj implements KeyListener{
+public class MainCharacter extends BoardObj {
 
-    
     public MainCharacter(ImageIcon g, Point p) {
-        super(g,p);
-    }
+        super(g, p);
 
+    }
 
     /**
      *
@@ -46,67 +43,27 @@ public class MainCharacter extends BoardObj implements KeyListener{
      */
     @Override
     public void moveTo(Direction direction) {
-        switch(direction){
-        case UP:
-            //Sprite animation here
-            break;
-        
-        case LEFT:
-            //Sprite animation here
-
-            break;
-            
-        case RIGHT:
-
-            break;
-            
-        case DOWN:
-            //Sprite animation here
-
-            break;
-                
-    }
-        
-        
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-        
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-
-        switch(e.getKeyCode()){
-            case KeyEvent.VK_UP:
-            case KeyEvent.VK_W:
-                location.y -= 2;
+        switch (direction) {
+            case UP:
+                //Sprite animation here
                 break;
-                
-            case KeyEvent.VK_LEFT:
-            case KeyEvent.VK_A:
-                location.x -= 2;
+
+            case LEFT:
+                //Sprite animation here
+
                 break;
-                
-            case KeyEvent.VK_RIGHT:
-            case KeyEvent.VK_D:
-                location.x += 2;
+
+            case RIGHT:
+
                 break;
-                
-            case KeyEvent.VK_DOWN:
-            case KeyEvent.VK_S:
-                location.y += 2;
+
+            case DOWN:
+                //Sprite animation here
+
                 break;
+
         }
-        
+
     }
 
-    @Override
-    public void keyReleased(KeyEvent e) {
-        
-    }
-    
-    
-    
 }

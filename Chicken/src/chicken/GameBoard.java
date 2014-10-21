@@ -27,15 +27,16 @@
 package chicken;
 
 
+import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -43,7 +44,7 @@ import javax.swing.Timer;
  *
  * @author hwf5000, Aldrich
  */
-public class GameBoard extends JPanel implements ActionListener{
+public class GameBoard extends JPanel implements ActionListener, KeyListener{
 
     int height;
     int width;
@@ -58,6 +59,7 @@ public class GameBoard extends JPanel implements ActionListener{
 
     public GameBoard(int h, int w) {
         movementTimer = new Timer(50,this);
+        setLayout(null);
         
         /*
         setLayout(new GridLayout(20,30));
@@ -75,8 +77,13 @@ public class GameBoard extends JPanel implements ActionListener{
         width = w;
         g = new ImageIcon(getClass().getClassLoader().getResource("yoshi.png"));
         
-        yoshi = new MainCharacter(g, new Point(10,30));
-        add(yoshi);
+        yoshi = new MainCharacter(g, new Point(100,300));
+        add(yoshi); 
+        setFocusable(true);
+        yoshi.setBounds(yoshi.location.x, yoshi.location.y, 100, 100);
+        yoshi.setBackground(Color.red);
+        addKeyListener(this);
+        
         
         //enemies.set(0, new EnemyBullet(g, new Point(5,5)));
   
@@ -86,8 +93,47 @@ public class GameBoard extends JPanel implements ActionListener{
     public void paintComponent(Graphics g) {
 
     	super.paintComponent(g); 
-        Image i = createImage(yoshi.location.x,yoshi.location.y);
-        g.drawImage(i,yoshi.location.x,yoshi.location.y, this);
+        yoshi.setBounds(yoshi.location.x, yoshi.location.y, 100, 100);
+        
+    }
+    @Override
+    public void keyTyped(KeyEvent e) {
+        
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+        switch(e.getKeyCode()){
+            case KeyEvent.VK_UP:
+            case KeyEvent.VK_W:
+                yoshi.location.y -= 2;
+                repaint();
+                break;
+                
+            case KeyEvent.VK_LEFT:
+            case KeyEvent.VK_A:
+                yoshi.location.x -= 2;
+                repaint();
+                break;
+                
+            case KeyEvent.VK_RIGHT:
+            case KeyEvent.VK_D:
+                yoshi.location.x += 2;
+                repaint();
+                break;
+                
+            case KeyEvent.VK_DOWN:
+            case KeyEvent.VK_S:
+                yoshi.location.y += 2;
+                repaint();
+                break;
+        }
+        
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
         
     }
 
@@ -100,7 +146,7 @@ public class GameBoard extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         Object obj = e.getSource();
         if(obj == movementTimer){
-            repaint();
+        repaint();
             
         }
     }
