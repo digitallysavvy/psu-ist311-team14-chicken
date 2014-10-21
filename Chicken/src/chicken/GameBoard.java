@@ -50,6 +50,7 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener{
     int width;
     ImageIcon background;
     MainCharacter yoshi;
+    EnemyBullet bullet;
     Timer movementTimer;
     Timer powerUptimer;
     ArrayList<BoardObj> enemies;
@@ -58,32 +59,27 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener{
     BoardObj[][] board = new BoardObj[20][30];
 
     public GameBoard(int h, int w) {
-        movementTimer = new Timer(50,this);
+        
+        //Set up the board layout and listeners
         setLayout(null);
-        
-        /*
-        setLayout(new GridLayout(20,30));
-        
-        for(int i = 0; i < 20; i++){
-            for(int j = 0; j < 30; j++){
-                board[i][j] = new BoardObj(null, new Point(i,j));
-                add(board[i][j]);              
-            }
-        }*/
-        
-        
-        ImageIcon g;
+        setFocusable(true); 
+        addKeyListener(this);        
         height =  h;
         width = w;
-        g = new ImageIcon(getClass().getClassLoader().getResource("yoshi.png"));
         
-        yoshi = new MainCharacter(g, new Point(100,300));
+        //Create Movement Timer
+        movementTimer = new Timer(50,this);
+        
+        
+        //Create Yoshi and add to board
+        yoshi = new MainCharacter(new ImageIcon(getClass().getClassLoader().getResource("yoshi.png")), new Point(100,300));
         add(yoshi); 
-        setFocusable(true);
-        yoshi.setBounds(yoshi.location.x, yoshi.location.y, 100, 100);
-        yoshi.setBackground(Color.red);
-        addKeyListener(this);
+        yoshi.setBounds(yoshi.location.x, yoshi.location.y, 30, 30);
         
+        //Create Bullet and add to board
+        bullet = new EnemyBullet(new ImageIcon(getClass().getClassLoader().getResource("bullet.png")), new Point(200,100));
+        add(bullet);
+        bullet.setBounds(bullet.location.x, bullet.location.y, 100, 100);
         
         //enemies.set(0, new EnemyBullet(g, new Point(5,5)));
   
