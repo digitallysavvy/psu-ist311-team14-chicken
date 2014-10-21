@@ -38,7 +38,13 @@ public class ShellPanel extends JPanel{
     public ShellPanel(){
         super();
         setLayout(new BorderLayout());
-        gameboard = new GameBoard(SwingUtilities.windowForComponent(this).getHeight(),
-                SwingUtilities.windowForComponent(this).getWidth());
+        
+    }
+    
+    public void createGameBoard(){
+        int x = this.getRootPane().getParent().getHeight();
+        int y = this.getRootPane().getParent().getWidth();
+        gameboard = new GameBoard(x,y);
+        add(gameboard);
     }
 }

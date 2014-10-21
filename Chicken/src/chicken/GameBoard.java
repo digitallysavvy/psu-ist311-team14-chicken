@@ -27,11 +27,15 @@
 package chicken;
 
 
+import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Point;
-import java.io.IOException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -39,7 +43,7 @@ import javax.swing.Timer;
  *
  * @author hwf5000, Aldrich
  */
-public class GameBoard extends JPanel{
+public class GameBoard extends JPanel implements ActionListener{
 
     int height;
     int width;
@@ -49,23 +53,60 @@ public class GameBoard extends JPanel{
     Timer powerUptimer;
     ArrayList<BoardObj> enemies;
     PowerUp powerUp;
+    
+    BoardObj[][] board = new BoardObj[20][30];
 
     public GameBoard(int h, int w) {
+        movementTimer = new Timer(50,this);
+        
+        /*
+        setLayout(new GridLayout(20,30));
+        
+        for(int i = 0; i < 20; i++){
+            for(int j = 0; j < 30; j++){
+                board[i][j] = new BoardObj(null, new Point(i,j));
+                add(board[i][j]);              
+            }
+        }*/
+        
+        
         ImageIcon g;
         height =  h;
         width = w;
-        try {
-            g = new ImageIcon(ImageIO.read(getClass().getResource("images/yoshi.png")));
-        } catch (IOException ex) {
-            g = null;
-        }
-        yoshi = new MainCharacter(g, new Point(0,0));
+        g = new ImageIcon(getClass().getClassLoader().getResource("yoshi.png"));
+        
+        yoshi = new MainCharacter(g, new Point(10,30));
+        add(yoshi);
+        
+        //enemies.set(0, new EnemyBullet(g, new Point(5,5)));
   
+    }
+    
+    @Override
+    public void paintComponent(Graphics g) {
+
+    	super.paintComponent(g); 
+        Image i = createImage(yoshi.location.x,yoshi.location.y);
+        g.drawImage(i,yoshi.location.x,yoshi.location.y, this);
+        
     }
 
     public boolean collisionCheck() {
         //check if main character has 
         return false;
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Object obj = e.getSource();
+        if(obj == movementTimer){
+            repaint();
+            
+        }
+    }
+    
+    
+
+    
 
 }

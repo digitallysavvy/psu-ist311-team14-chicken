@@ -81,22 +81,22 @@ public class MainCharacter extends BoardObj implements KeyListener{
         switch(e.getKeyCode()){
             case KeyEvent.VK_UP:
             case KeyEvent.VK_W:
-               
+                location.y -= 2;
                 break;
                 
             case KeyEvent.VK_LEFT:
             case KeyEvent.VK_A:
-
+                location.x -= 2;
                 break;
                 
             case KeyEvent.VK_RIGHT:
             case KeyEvent.VK_D:
-
+                location.x += 2;
                 break;
                 
             case KeyEvent.VK_DOWN:
             case KeyEvent.VK_S:
-
+                location.y += 2;
                 break;
         }
         

@@ -43,6 +43,7 @@ public class OuterFrame extends JFrame {
         // Frame Properties
         getContentPane().setLayout(new BorderLayout());
 	getContentPane().add(mainPanel, "Center");
+        mainPanel.createGameBoard();
         
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 	setSize (900, 600);
