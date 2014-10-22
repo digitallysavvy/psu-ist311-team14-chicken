@@ -27,18 +27,24 @@
 package chicken;
 
 
+import java.awt.AlphaComposite;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
-import javax.swing.Timer;
+import javax.swing.*;
+
 
 /**
  *
@@ -55,6 +61,7 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener{
     Timer powerUptimer;
     ArrayList<BoardObj> enemies;
     PowerUp powerUp;
+    Rectangle winArea;
     
     BoardObj[][] board = new BoardObj[20][30];
 
@@ -66,8 +73,11 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener{
         addKeyListener(this);
         height =  h;
         width = w;
+        //Graphics2D g2d = (Graphics2D) g;
         
         enemies = new ArrayList<>();
+        winArea = new Rectangle(0, 0, 600, 40);
+        
         
         background = bg;
         Dimension dimensions = new Dimension (bg.getWidth(null), bg.getHeight(null));
@@ -79,13 +89,13 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener{
         
         
         //Create Yoshi and add to board
-        yoshi = new MainCharacter(new ImageIcon(getClass().getClassLoader().getResource("yoshi.png")), new Point(500,300));
+        yoshi = new MainCharacter(new ImageIcon(getClass().getClassLoader().getResource("yoshi.png")), new Point(300,650));
         add(yoshi); 
         yoshi.setBounds(yoshi.location.x, yoshi.location.y, yoshi.getWidth(), yoshi.getHeight());
         
         //Create Bullet and add to board
         bullet = new EnemyBullet(new ImageIcon(getClass().getClassLoader().getResource("bullet.png")), new Point(0,100));
-        bullet2 = new EnemyBullet(new ImageIcon(getClass().getClassLoader().getResource("bullet2.png")), new Point(this.getWidth(),200));
+        bullet2 = new EnemyBullet(new ImageIcon(getClass().getClassLoader().getResource("bullet2.png")), new Point(this.getWidth(),220));
         add(bullet);
         add(bullet2);
         bullet.setBounds(bullet.location.x, bullet.location.y, bullet.getWidth(), bullet.getHeight());
@@ -94,7 +104,7 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener{
         enemies.add(bullet2);
         
         //Create Movement Timer
-        movementTimer = new Timer(100,this);
+        movementTimer = new Timer(50,this);
         movementTimer.addActionListener(this);
         movementTimer.start();
         
@@ -104,10 +114,23 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener{
     public void paintComponent(Graphics g) {
 
     	super.paintComponent(g); 
+        
+        
         g.drawImage(background,0,0,null);
+        g.setColor(new Color(100, 100, 100, 100));
+        g.fillRect(0,0,this.getWidth(),40);
         yoshi.setBounds(yoshi.location.x, yoshi.location.y, 30, 30);
         bullet.setBounds(bullet.location.x, bullet.location.y, 33, 29);
         bullet2.setBounds(bullet2.location.x, bullet2.location.y, 33, 29);
+        //drawWinArea(g);
+    }
+    
+    public void drawWinArea(Graphics g){
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,0.1f));
+
+        g2d.setColor(Color.red);
+        g2d.fillRect(0, 0, this.getWidth(), 40);
     }
     @Override
     public void keyTyped(KeyEvent e) {
@@ -154,12 +177,50 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener{
         for(int i = 0; i < enemies.size(); i++){
             if(enemies.get(i).getBounds().intersects(yoshi.getBounds())){
                 return true;
-            }
-            
-        }
-        
+            }           
+        }       
     return false;
-
+    }
+    
+    
+    public void gameOver(){
+                
+        if(collisionCheck() == true){
+            JLabel gameover = new JLabel("Game Over",SwingConstants.CENTER);
+            gameover.setFont(new Font("serif", Font.PLAIN, 36));
+            movementTimer.stop();
+            JFrame gameoverFrame = new JFrame("Game Over");
+            gameoverFrame.setLayout(new GridLayout(3,1));
+            gameoverFrame.add(gameover);           
+            JLabel lose = new JLabel("You lose", SwingConstants.CENTER);
+            gameoverFrame.add(lose);
+            gameoverFrame.setSize(300,300);
+            gameoverFrame.setLocationRelativeTo(this);
+            gameoverFrame.setVisible(true);
+        }
+        else if(gameWin() == true){
+            JLabel gameover = new JLabel("Game Over",SwingConstants.CENTER);
+            gameover.setFont(new Font("serif", Font.PLAIN, 36));
+            movementTimer.stop();
+            JFrame gameoverFrame = new JFrame("Game Over");
+            gameoverFrame.setLayout(new GridLayout(3,1));
+            gameoverFrame.add(gameover);           
+            JLabel lose = new JLabel("You win", SwingConstants.CENTER);
+            gameoverFrame.add(lose);
+            gameoverFrame.setSize(300,300);
+            gameoverFrame.setLocationRelativeTo(this);
+            gameoverFrame.setVisible(true);
+        }
+  
+    }
+    
+    public boolean gameWin(){
+        if(yoshi.getBounds().intersects(winArea)){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     @Override
@@ -179,9 +240,9 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener{
             else{
                 bullet2.location.x += this.getWidth();
             }
-            if(collisionCheck() == true){
-                System.out.println("collided");
-            }
+            
+            gameOver();
+            
             repaint();
         }
     }
