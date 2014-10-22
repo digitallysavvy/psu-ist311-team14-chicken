@@ -24,8 +24,8 @@
 package chicken;
 
 import java.awt.BorderLayout;
+import java.awt.Image;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -38,13 +38,12 @@ public class ShellPanel extends JPanel{
     public ShellPanel(){
         super();
         setLayout(new BorderLayout());
-        
     }
     
-    public void createGameBoard(){
+    public void createGameBoard(Image bg){
         int x = this.getRootPane().getParent().getHeight();
         int y = this.getRootPane().getParent().getWidth();
-        gameboard = new GameBoard(x,y);
+        gameboard = new GameBoard(x,y,bg);
         add(gameboard);
     }
 }

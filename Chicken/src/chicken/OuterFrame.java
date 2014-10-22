@@ -24,6 +24,7 @@
 package chicken;
 
 import java.awt.BorderLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 /**
@@ -43,10 +44,9 @@ public class OuterFrame extends JFrame {
         // Frame Properties
         getContentPane().setLayout(new BorderLayout());
 	getContentPane().add(mainPanel, "Center");
-        mainPanel.createGameBoard();
-        
+        mainPanel.createGameBoard(new ImageIcon(getClass().getClassLoader().getResource("street-bg.png")).getImage());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-	setSize (900, 600);
+	setSize (600, 900);
 	setVisible(true);
     }
     

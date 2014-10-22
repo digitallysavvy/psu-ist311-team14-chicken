@@ -27,7 +27,7 @@
 package chicken;
 
 
-import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
@@ -48,7 +48,7 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener{
 
     int height;
     int width;
-    ImageIcon background;
+    Image background;
     MainCharacter yoshi;
     EnemyBullet bullet;
     Timer movementTimer;
@@ -58,28 +58,36 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener{
     
     BoardObj[][] board = new BoardObj[20][30];
 
-    public GameBoard(int h, int w) {
+    public GameBoard(int h, int w, Image bg) {
         
         //Set up the board layout and listeners
         setLayout(null);
         setFocusable(true); 
-        addKeyListener(this);        
+        addKeyListener(this);
         height =  h;
         width = w;
         
         //Create Movement Timer
         movementTimer = new Timer(50,this);
         
+        background = bg;
+        Dimension dimensions = new Dimension (bg.getWidth(null), bg.getHeight(null));
+        setPreferredSize(dimensions);
+        setMinimumSize(dimensions);
+        setMaximumSize(dimensions);
+        setSize(dimensions);
+        setLayout(null);
+        
         
         //Create Yoshi and add to board
         yoshi = new MainCharacter(new ImageIcon(getClass().getClassLoader().getResource("yoshi.png")), new Point(100,300));
         add(yoshi); 
-        yoshi.setBounds(yoshi.location.x, yoshi.location.y, 30, 30);
+        yoshi.setBounds(yoshi.location.x, yoshi.location.y, yoshi.getWidth(), yoshi.getHeight());
         
         //Create Bullet and add to board
         bullet = new EnemyBullet(new ImageIcon(getClass().getClassLoader().getResource("bullet.png")), new Point(200,100));
         add(bullet);
-        bullet.setBounds(bullet.location.x, bullet.location.y, 100, 100);
+        bullet.setBounds(bullet.location.x, bullet.location.y, bullet.getWidth(), bullet.getHeight());
         
         //enemies.set(0, new EnemyBullet(g, new Point(5,5)));
   
@@ -89,6 +97,7 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener{
     public void paintComponent(Graphics g) {
 
     	super.paintComponent(g); 
+        g.drawImage(background,0,0,null);
         yoshi.setBounds(yoshi.location.x, yoshi.location.y, 100, 100);
         
     }

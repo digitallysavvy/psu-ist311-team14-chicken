@@ -38,7 +38,6 @@ public class BoardObj extends JLabel {
     }
     
     Point location;
-
     ImageIcon graphic;
     
     public BoardObj(ImageIcon g, Point p){
@@ -52,5 +51,6 @@ public class BoardObj extends JLabel {
     public void moveTo(Direction d){
         
     }
+    
         
 }
