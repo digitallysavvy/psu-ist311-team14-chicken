@@ -50,7 +50,7 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener{
     int width;
     Image background;
     MainCharacter yoshi;
-    EnemyBullet bullet;
+    EnemyBullet bullet, bullet2;
     Timer movementTimer;
     Timer powerUptimer;
     ArrayList<BoardObj> enemies;
@@ -67,8 +67,7 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener{
         height =  h;
         width = w;
         
-        //Create Movement Timer
-        movementTimer = new Timer(50,this);
+        enemies = new ArrayList<>();
         
         background = bg;
         Dimension dimensions = new Dimension (bg.getWidth(null), bg.getHeight(null));
@@ -80,26 +79,35 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener{
         
         
         //Create Yoshi and add to board
-        yoshi = new MainCharacter(new ImageIcon(getClass().getClassLoader().getResource("yoshi.png")), new Point(100,300));
+        yoshi = new MainCharacter(new ImageIcon(getClass().getClassLoader().getResource("yoshi.png")), new Point(500,300));
         add(yoshi); 
         yoshi.setBounds(yoshi.location.x, yoshi.location.y, yoshi.getWidth(), yoshi.getHeight());
         
         //Create Bullet and add to board
-        bullet = new EnemyBullet(new ImageIcon(getClass().getClassLoader().getResource("bullet.png")), new Point(200,100));
+        bullet = new EnemyBullet(new ImageIcon(getClass().getClassLoader().getResource("bullet.png")), new Point(0,100));
+        bullet2 = new EnemyBullet(new ImageIcon(getClass().getClassLoader().getResource("bullet2.png")), new Point(this.getWidth(),200));
         add(bullet);
+        add(bullet2);
+        bullet.setBounds(bullet.location.x, bullet.location.y, 33, 29);
+        bullet2.setBounds(bullet2.location.x, bullet2.location.y, 33, 29);
+        enemies.add(bullet);
+        enemies.add(bullet2);
         bullet.setBounds(bullet.location.x, bullet.location.y, bullet.getWidth(), bullet.getHeight());
         
-        //enemies.set(0, new EnemyBullet(g, new Point(5,5)));
-  
+        //Create Movement Timer
+        movementTimer = new Timer(100,this);
+        movementTimer.addActionListener(this);
+        movementTimer.start();
+        
     }
     
     @Override
     public void paintComponent(Graphics g) {
 
     	super.paintComponent(g); 
-        g.drawImage(background,0,0,null);
-        yoshi.setBounds(yoshi.location.x, yoshi.location.y, 100, 100);
-        
+        yoshi.setBounds(yoshi.location.x, yoshi.location.y, 30, 30);
+        bullet.setBounds(bullet.location.x, bullet.location.y, 33, 29);
+        bullet2.setBounds(bullet2.location.x, bullet2.location.y, 33, 29);
     }
     @Override
     public void keyTyped(KeyEvent e) {
@@ -143,16 +151,38 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener{
     }
 
     public boolean collisionCheck() {
-        //check if main character has 
-        return false;
+        for(int i = 0; i < enemies.size(); i++){
+            if(enemies.get(i).getBounds().intersects(yoshi.getBounds())){
+                return true;
+            }
+            
+        }
+        
+    return false;
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         Object obj = e.getSource();
         if(obj == movementTimer){
-        repaint();
+            if(bullet.location.x <= this.getWidth()){               
+                bullet.location.x += 2;
+            }
+            else{
+                bullet.location.x = 0;
+            }
             
+            if(bullet2.location.x > 0){
+                bullet2.location.x -= 2;
+            }
+            else{
+                bullet2.location.x += this.getWidth();
+            }
+            if(collisionCheck() == true){
+                System.out.println("collided");
+            }
+            repaint();
         }
     }
     
