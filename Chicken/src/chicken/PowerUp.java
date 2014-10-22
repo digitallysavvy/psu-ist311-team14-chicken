@@ -26,6 +26,7 @@ package chicken;
 import java.awt.Point;
 import javax.swing.ImageIcon;
 
+
 /**
  *
  * @author Aldrich, hwf5000
