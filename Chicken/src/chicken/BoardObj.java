@@ -39,10 +39,14 @@ public class BoardObj extends JLabel {
     
     Point location;
     ImageIcon graphic;
+    int height;
+    int width;
     
     public BoardObj(ImageIcon g, Point p){
         graphic = g;
         location = p;
+        height = graphic.getIconHeight();
+        width = graphic.getIconWidth();
         setIcon(graphic);
     }
     
