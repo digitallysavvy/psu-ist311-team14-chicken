@@ -200,7 +200,7 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener {
             powerupTimer++;
             
             // temporarily add the power up to the screen
-            if (powerupTimer > 50 && powerupTimer < 200) {
+            if (powerupTimer == 50) {
                 add(powerUp);
                 powerUp.setBounds(powerUp.location.x, powerUp.location.y, powerUp.width, powerUp.height);
             }
