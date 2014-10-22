@@ -88,11 +88,10 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener{
         bullet2 = new EnemyBullet(new ImageIcon(getClass().getClassLoader().getResource("bullet2.png")), new Point(this.getWidth(),200));
         add(bullet);
         add(bullet2);
-        bullet.setBounds(bullet.location.x, bullet.location.y, 33, 29);
-        bullet2.setBounds(bullet2.location.x, bullet2.location.y, 33, 29);
+        bullet.setBounds(bullet.location.x, bullet.location.y, bullet.getWidth(), bullet.getHeight());
+        bullet2.setBounds(bullet2.location.x, bullet2.location.y, bullet2.getWidth(), bullet2.getHeight());
         enemies.add(bullet);
         enemies.add(bullet2);
-        bullet.setBounds(bullet.location.x, bullet.location.y, bullet.getWidth(), bullet.getHeight());
         
         //Create Movement Timer
         movementTimer = new Timer(100,this);
@@ -105,6 +104,7 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener{
     public void paintComponent(Graphics g) {
 
     	super.paintComponent(g); 
+        g.drawImage(background,0,0,null);
         yoshi.setBounds(yoshi.location.x, yoshi.location.y, 30, 30);
         bullet.setBounds(bullet.location.x, bullet.location.y, 33, 29);
         bullet2.setBounds(bullet2.location.x, bullet2.location.y, 33, 29);
@@ -120,25 +120,25 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener{
         switch(e.getKeyCode()){
             case KeyEvent.VK_UP:
             case KeyEvent.VK_W:
-                yoshi.location.y -= 2;
+                yoshi.location.y -= 10;
                 repaint();
                 break;
                 
             case KeyEvent.VK_LEFT:
             case KeyEvent.VK_A:
-                yoshi.location.x -= 2;
+                yoshi.location.x -= 10;
                 repaint();
                 break;
                 
             case KeyEvent.VK_RIGHT:
             case KeyEvent.VK_D:
-                yoshi.location.x += 2;
+                yoshi.location.x += 10;
                 repaint();
                 break;
                 
             case KeyEvent.VK_DOWN:
             case KeyEvent.VK_S:
-                yoshi.location.y += 2;
+                yoshi.location.y += 10;
                 repaint();
                 break;
         }
