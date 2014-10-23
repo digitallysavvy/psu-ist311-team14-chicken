@@ -23,35 +23,43 @@
  */
 package chicken;
 
+
+
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
-import javax.swing.Timer;
+import java.util.TimerTask;
+import javax.swing.*;
+
 
 /**
  *
  * @author hwf5000, Aldrich
  */
-public class GameBoard extends JPanel implements ActionListener, KeyListener {
+public class GameBoard extends JPanel implements ActionListener, KeyListener{
 
     int height;
     int width;
+    int delay = 100;
     Image background;
     MainCharacter yoshi;
     EnemyBullet bullet, bullet2;
     Timer movementTimer;
-    int powerupTimer;
+    Timer powerupTimer;
     ArrayList<BoardObj> enemies;
-    PowerUp powerUp;
-
+    PowerUp powerUp = null;
+    Rectangle winArea;
+    
     BoardObj[][] board = new BoardObj[20][30];
 
     public GameBoard(int h, int w, Image bg) {
@@ -64,7 +72,9 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener {
         width = w;
 
         enemies = new ArrayList<>();
-
+        winArea = new Rectangle(0, 0, 600, 40);
+        
+        
         background = bg;
         Dimension dimensions = new Dimension(bg.getWidth(null), bg.getHeight(null));
         setPreferredSize(dimensions);
@@ -74,13 +84,13 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener {
         setLayout(null);
 
         //Create Yoshi and add to board
-        yoshi = new MainCharacter(new ImageIcon(getClass().getClassLoader().getResource("yoshi.png")), new Point(500, 300));
-        add(yoshi);
-        yoshi.setBounds(yoshi.location.x, yoshi.location.y, yoshi.width, yoshi.height);
-
+        yoshi = new MainCharacter(new ImageIcon(getClass().getClassLoader().getResource("yoshi.png")), new Point(300,650));
+        add(yoshi); 
+        yoshi.setBounds(yoshi.location.x, yoshi.location.y, yoshi.getWidth(), yoshi.getHeight());
+        
         //Create Bullet and add to board
-        bullet = new EnemyBullet(new ImageIcon(getClass().getClassLoader().getResource("bullet.png")), new Point(-30, 100));
-        bullet2 = new EnemyBullet(new ImageIcon(getClass().getClassLoader().getResource("bullet2.png")), new Point(this.getWidth(), 200));
+        bullet = new EnemyBullet(new ImageIcon(getClass().getClassLoader().getResource("bullet.png")), new Point(0,100));
+        bullet2 = new EnemyBullet(new ImageIcon(getClass().getClassLoader().getResource("bullet2.png")), new Point(this.getWidth(),220));
         add(bullet);
         add(bullet2);
         bullet.setBounds(bullet.location.x, bullet.location.y, bullet.width, bullet.height);
@@ -89,14 +99,25 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener {
         enemies.add(bullet2);
 
         //Create Powerup;
-        powerUp = new PowerUp(new ImageIcon(getClass().getClassLoader().getResource("egg.png")), new Point(250, 600));
-        powerupTimer = 0;
+        //Don't have egg.jpg yet. Using yoshi for now to test.
+        powerUp = new PowerUp(new ImageIcon(getClass().getClassLoader().getResource("yoshi.png")), new Point(250, 600));
+        powerUp.setBounds(powerUp.location.x, powerUp.location.y, powerUp.width, powerUp.height);
+        add(powerUp);
 
         //Create Movement Timer
-        movementTimer = new Timer(100, this);
+        movementTimer = new Timer(delay,this);
         movementTimer.addActionListener(this);
         movementTimer.start();
-
+        
+        //powerupTimer = new Timer(0,this); 
+        //powerupTimer.addActionListener(this);
+        //powerupTimer.start();
+        
+        
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        
+        
+        
     }
 
     @Override
@@ -108,15 +129,14 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener {
         bullet.setBounds(bullet.location.x, bullet.location.y, bullet.width, bullet.height);
         bullet2.setBounds(bullet2.location.x, bullet2.location.y, bullet2.width, bullet2.height);
 
-        if (powerupTimer > 50 && powerupTimer < 200) {
-            add(powerUp);
-            powerUp.setBounds(powerUp.location.x, powerUp.location.y, powerUp.width, powerUp.height);
-        }
+        //if (powerupTimer > 50 && powerupTimer < 200) {
+            //add(powerUp);
+        //}
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-
+        
     }
 
     @Override
@@ -164,17 +184,77 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener {
         for (int i = 0; i < enemies.size(); i++) {
             if (enemies.get(i).getBounds().intersects(yoshi.getBounds())) {
                 return true;
-            }
+            }           
+        }       
+    return false;
+    }
+    
+    public boolean powerupCollision(){
+        if(powerUp.getBounds().intersects(yoshi.getBounds())){
+            
+            
+            
+            remove(powerUp);
+            powerUp = null;
+            int totalTime = 100; // in nanoseconds
+            long startTime = System.currentTimeMillis();
+            boolean toFinish = false;
 
+                powerupTimer.setDelay(300);
+        return true;
         }
-
         return false;
-
+    }
+    
+    
+    public void gameOver(){
+                
+        if(collisionCheck() == true){
+            
+            JLabel gameover = new JLabel("Game Over",SwingConstants.CENTER);
+            gameover.setFont(new Font("serif", Font.PLAIN, 36));
+            
+            movementTimer.stop();
+            JFrame gameoverFrame = new JFrame("Game Over");
+            gameoverFrame.setLayout(new GridLayout(3,1));
+            gameoverFrame.add(gameover);           
+            JLabel lose = new JLabel("You lose", SwingConstants.CENTER);
+            gameoverFrame.add(lose);
+            gameoverFrame.setSize(300,300);
+            gameoverFrame.setLocationRelativeTo(this);
+            gameoverFrame.setVisible(true);
+        }
+        else if(gameWin() == true){
+            
+            JLabel gameover = new JLabel("Game Over",SwingConstants.CENTER);
+            gameover.setFont(new Font("serif", Font.PLAIN, 36));
+            
+            movementTimer.stop();
+            JFrame gameoverFrame = new JFrame("Game Over");
+            gameoverFrame.setLayout(new GridLayout(3,1));
+            gameoverFrame.add(gameover);           
+            JLabel lose = new JLabel("You win", SwingConstants.CENTER);
+            gameoverFrame.add(lose);
+            gameoverFrame.setSize(300,300);
+            gameoverFrame.setLocationRelativeTo(this);
+            gameoverFrame.setVisible(true);
+        }
+  
+    }
+    
+    public boolean gameWin(){
+        if(yoshi.getBounds().intersects(winArea)){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         Object obj = e.getSource();
+
         if (obj == movementTimer) {
             
             //Move bullet across the screen
@@ -190,26 +270,36 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener {
             } else {
                 bullet2.location.x += this.getWidth();
             }
-
-            //check if the bullet has hit yoshi
-            if (collisionCheck() == true) {
-                System.out.println("collided");
-            }
-
             // increment the power up counter
-            powerupTimer++;
+            //powerupTimer++;
             
             // temporarily add the power up to the screen
             if (powerupTimer == 50) {
                 add(powerUp);
                 powerUp.setBounds(powerUp.location.x, powerUp.location.y, powerUp.width, powerUp.height);
+            //if (powerupTimer > 50 && powerupTimer < 200) {
+                //add(powerUp);
+                //powerUp.setBounds(powerUp.location.x, powerUp.location.y, powerUp.width, powerUp.height);
+            //}
+            //else{
+                //remove(powerUp);
+            //}
+            
+            if(powerUp != null){
+                powerupCollision();
+                
             }
-            else{
-                remove(powerUp);
-            }
-
+            gameOver();
+            
             repaint();
         }
+        
+        /*
+        if(obj == powerupTimer){
+            movementTimer.setDelay(200);
+        }
+        */
     }
+    
 
 }

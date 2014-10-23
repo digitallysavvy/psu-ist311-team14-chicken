@@ -38,6 +38,8 @@ public class ShellPanel extends JPanel{
     public ShellPanel(){
         super();
         setLayout(new BorderLayout());
+        
+
     }
     
     public void createGameBoard(Image bg){

@@ -44,6 +44,7 @@ public class OuterFrame extends JFrame {
         // Frame Properties
         getContentPane().setLayout(new BorderLayout());
 	getContentPane().add(mainPanel, "Center");
+
         mainPanel.createGameBoard(new ImageIcon(getClass().getClassLoader().getResource("street-bg.png")).getImage());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 	setSize (600, 900);
