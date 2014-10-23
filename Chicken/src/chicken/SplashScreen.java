@@ -45,7 +45,7 @@ public class SplashScreen extends JFrame implements ActionListener {
     Image img;
     
     public SplashScreen() {
-        addActionListener(this);
+        
         setLayout(new GridLayout(6, 1));
         
         start = new JButton("Start Game");
@@ -67,16 +67,26 @@ public class SplashScreen extends JFrame implements ActionListener {
         add(level3);
         setVisible(true);
        setSize(600,800);
+       start.addActionListener(this);
+       char1.addActionListener(this);
+       char2.addActionListener(this);
+       char3.addActionListener(this);
+       level1.addActionListener(this);
+       level2.addActionListener(this);
+       level3.addActionListener(this);
+       
        
        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        
-        
-        
+  
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-     //   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       Object obj = e.getSource();
+      switch (obj.toString()) {
+          
+          
+      }
     }
     
     
