@@ -111,13 +111,14 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener {
         enemies.add(bullet3);
 
         //Create Powerup;
-        powerUp = new PowerUp(new ImageIcon(getClass().getClassLoader().getResource("egg.png")), new Point(250, 600));
+        int randX = (int) Math.ceil(Math.random() * 400);
+        int randY = (int) Math.ceil(Math.random() * 300);
+        powerUp = new PowerUp(new ImageIcon(getClass().getClassLoader().getResource("egg.png")), new Point(randX, randY));
 
         //Create Movement Timer
         movementTimer = new Timer(delay, this);
         movementTimer.addActionListener(this);
         movementTimer.start();
-
 
     }
 
@@ -279,9 +280,7 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener {
                 powerUp.setBounds(powerUp.location.x, powerUp.location.y, powerUp.width, powerUp.height);
             }
 
-            if (powerupTimer > powerupStart && powerupTimer < powerupRemove) {
-                powerupCollision();
-            }
+            powerupCollision();
 
             gameOver();
             repaint();

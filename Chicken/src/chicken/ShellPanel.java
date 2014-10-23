@@ -25,20 +25,27 @@ package chicken;
 
 import java.awt.BorderLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
  *
  * @author hwf5000
  */
-public class ShellPanel extends JPanel{
+public class ShellPanel extends JPanel implements ActionListener{
     
     GameBoard gameboard;
+    StartScreen startScreen;
+    Image character, background;
     
     public ShellPanel(){
         super();
         setLayout(new BorderLayout());
         
+        startScreen = new StartScreen();
+        startScreen.startButton.addActionListener(this);
 
     }
     
@@ -47,5 +54,19 @@ public class ShellPanel extends JPanel{
         int y = this.getRootPane().getParent().getWidth();
         gameboard = new GameBoard(x,y,bg, c);
         add(gameboard);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Object obj = e.getSource();
+        
+        if(obj.equals(startScreen.startButton)){
+            if(startScreen.character == null){
+                character = new ImageIcon(getClass().getClassLoader().getResource("yoshi.png")).getImage();
+            }
+            else {
+                character = startScreen.character;
+            }
+        }
     }
 }

@@ -29,14 +29,19 @@ package chicken;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class StartScreen extends JPanel {
+public class StartScreen extends JPanel implements ActionListener{
 
     JButton greenCharacter, blueCharacter, yellowCharacter, streetsBg, conesBg, skiesBg, startButton;
     JPanel characterChooser, bgChooser;
+    
+    Image character, background;
 
     public StartScreen(){
         
@@ -73,9 +78,47 @@ public class StartScreen extends JPanel {
         
         startButton = new JButton("Start Game");
         
+        
+        //Add listeners for user selection
+        greenCharacter.addActionListener(this);
+        blueCharacter.addActionListener(this);
+        yellowCharacter.addActionListener(this);
+        
+        streetsBg.addActionListener(this);
+        conesBg.addActionListener(this);
+        skiesBg.addActionListener(this);
+        
         add(characterChooser);
         add(bgChooser);
         add(startButton);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Object obj = e.getSource();
+        
+        
+        if(obj.equals(greenCharacter)){
+            character = new ImageIcon(getClass().getClassLoader().getResource("yoshi.png")).getImage();
+            
+        }
+        else if(obj.equals(blueCharacter)){
+            character = new ImageIcon(getClass().getClassLoader().getResource("yoshi.png")).getImage();
+            
+        }
+        else if(obj.equals(yellowCharacter)){
+            character = new ImageIcon(getClass().getClassLoader().getResource("yoshi.png")).getImage();
+        }
+        
+        if(obj.equals(streetsBg)){
+            background = new ImageIcon(getClass().getClassLoader().getResource("street-bg.png")).getImage();            
+        }
+        else if(obj.equals(conesBg)){
+            background = new ImageIcon(getClass().getClassLoader().getResource("cones-bg.png")).getImage();
+        }
+        else if(obj.equals(skiesBg)){
+            background = new ImageIcon(getClass().getClassLoader().getResource("skies-bg.png")).getImage();      
+        }
     }
 
 }
