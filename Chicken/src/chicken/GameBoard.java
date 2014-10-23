@@ -183,8 +183,10 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener {
     }
 
     public boolean collisionCheck() {
-        for (BoardObj enemie : enemies) {
-            return enemie.getBounds().intersects(yoshi.getBounds());
+        for (BoardObj enemy : enemies) {
+             if(enemy.getBounds().intersects(yoshi.getBounds())){
+                 return true;
+             }
         }
         return false;
     }
@@ -284,12 +286,8 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener {
             if (powerupTimer > powerupStart && powerupTimer < powerupRemove) {
                 powerupCollision();
             }
-    
             
-            
-
-            gameOver();
-
+            gameOver();         
             repaint();
         }
 
