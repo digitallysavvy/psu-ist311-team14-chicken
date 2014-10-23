@@ -32,6 +32,8 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.BoxLayout;
+import static javax.swing.BoxLayout.Y_AXIS;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -46,7 +48,7 @@ public class StartScreen extends JPanel implements ActionListener{
     public StartScreen(){
         
         //Set Layout
-        setLayout(new BorderLayout());
+        setLayout(new BoxLayout(this, Y_AXIS));
         
         //Character Choice Panel
         bgChooser = new JPanel();
@@ -119,6 +121,7 @@ public class StartScreen extends JPanel implements ActionListener{
         else if(obj.equals(skiesBg)){
             background = new ImageIcon(getClass().getClassLoader().getResource("skies-bg.png")).getImage();      
         }
+        
     }
 
 }

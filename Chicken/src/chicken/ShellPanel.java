@@ -46,7 +46,7 @@ public class ShellPanel extends JPanel implements ActionListener{
         
         startScreen = new StartScreen();
         startScreen.startButton.addActionListener(this);
-        //add(startScreen);
+        add(startScreen);
 
     }
     
@@ -72,7 +72,7 @@ public class ShellPanel extends JPanel implements ActionListener{
         
         if(obj.equals(startScreen.startButton)){
             if(startScreen.background == null){
-                background = new ImageIcon(getClass().getClassLoader().getResource("street.png")).getImage();
+                background = new ImageIcon(getClass().getClassLoader().getResource("street-bg.png")).getImage();
             }
             else {
                 background = startScreen.background;
@@ -83,6 +83,10 @@ public class ShellPanel extends JPanel implements ActionListener{
         int y = this.getRootPane().getParent().getWidth();
         gameboard = new GameBoard(x,y,background, character);
         remove(startScreen);
+        startScreen.startButton.removeActionListener(this);
+        
         add(gameboard);
+        gameboard.getTopLevelAncestor().requestFocus();
+        gameboard.requestFocusInWindow();
     }
 }

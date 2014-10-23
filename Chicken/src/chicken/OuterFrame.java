@@ -52,7 +52,7 @@ public class OuterFrame extends JFrame {
         character = new ImageIcon(getClass().getClassLoader().getResource("yoshi.png")).getImage();
         
 
-        mainPanel.createGameBoard(background, character);
+        //mainPanel.createGameBoard(background, character);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 	setSize (600, 900);
 	setVisible(true);
