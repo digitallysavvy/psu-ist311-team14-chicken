@@ -24,6 +24,7 @@
 package chicken;
 
 import java.awt.BorderLayout;
+import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
@@ -34,6 +35,8 @@ import javax.swing.JFrame;
 public class OuterFrame extends JFrame {
     
     ShellPanel mainPanel;
+    Image background;
+    Image character;
     
     public OuterFrame(){
         super("Team 14 - Chicken Game");
@@ -44,8 +47,12 @@ public class OuterFrame extends JFrame {
         // Frame Properties
         getContentPane().setLayout(new BorderLayout());
 	getContentPane().add(mainPanel, "Center");
+        
+        background = new ImageIcon(getClass().getClassLoader().getResource("street-bg.png")).getImage();
+        character = new ImageIcon(getClass().getClassLoader().getResource("yoshi.png")).getImage();
+        
 
-        mainPanel.createGameBoard(new ImageIcon(getClass().getClassLoader().getResource("street-bg.png")).getImage());
+        mainPanel.createGameBoard(background, character);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 	setSize (600, 900);
 	setVisible(true);

@@ -30,7 +30,6 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -51,6 +50,7 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener {
     int powerupStart, powerupRemove, powerupEnd;
     int slowSpeed, fastSpeed;
     Image background;
+    Image character;
     MainCharacter yoshi;
     EnemyBullet bullet, bullet2, bullet3;
     Timer movementTimer;
@@ -61,7 +61,7 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener {
 
     BoardObj[][] board = new BoardObj[20][30];
 
-    public GameBoard(int h, int w, Image bg) {
+    public GameBoard(int h, int w, Image bg, Image c) {
 
         //Set up the board layout and listeners
         setLayout(null);
@@ -76,13 +76,14 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener {
         powerupStart = 50;
         powerupRemove = 200;
         powerupEnd = 400;
-        
+
         enemySpeed = fastSpeed;
 
         enemies = new ArrayList<>();
         winArea = new Rectangle(0, 0, 600, 20);
 
         background = bg;
+        character = c;
         Dimension dimensions = new Dimension(bg.getWidth(null), bg.getHeight(null));
         setPreferredSize(dimensions);
         setMinimumSize(dimensions);
@@ -91,7 +92,7 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener {
         setLayout(null);
 
         //Create Yoshi and add to board
-        yoshi = new MainCharacter(new ImageIcon(getClass().getClassLoader().getResource("yoshi.png")), new Point(300, 650));
+        yoshi = new MainCharacter(new ImageIcon(character), new Point(300, 650));
         add(yoshi);
         yoshi.setBounds(yoshi.location.x, yoshi.location.y, yoshi.getWidth(), yoshi.getHeight());
 
@@ -117,7 +118,6 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener {
         movementTimer.addActionListener(this);
         movementTimer.start();
 
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
 
     }
 
@@ -184,9 +184,7 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener {
 
     public boolean collisionCheck() {
         for (BoardObj enemy : enemies) {
-             if(enemy.getBounds().intersects(yoshi.getBounds())){
-                 return true;
-             }
+            return enemy.getBounds().intersects(yoshi.getBounds());
         }
         return false;
     }
@@ -217,8 +215,7 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener {
             gameoverFrame.setSize(300, 300);
             gameoverFrame.setLocationRelativeTo(this);
             gameoverFrame.setVisible(true);
-        } 
-        else if (gameWin() == true) {
+        } else if (gameWin() == true) {
 
             JLabel gameover = new JLabel("Game Over", SwingConstants.CENTER);
             gameover.setFont(new Font("serif", Font.PLAIN, 36));
@@ -267,16 +264,15 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener {
             } else {
                 bullet3.location.x = -30;
             }
-            
+
             // increment the power up counter
             if (powerupTimer <= powerupEnd) {
                 powerupTimer++;
-            }
-            else {
+            } else {
                 enemySpeed = fastSpeed;
                 remove(powerUp);
             }
-            
+
             // temporarily add the power up to the screen
             if (powerupTimer == powerupStart) {
                 add(powerUp);
@@ -286,16 +282,11 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener {
             if (powerupTimer > powerupStart && powerupTimer < powerupRemove) {
                 powerupCollision();
             }
-            
-            gameOver();         
+
+            gameOver();
             repaint();
         }
 
-        /*
-         if(obj == powerupTimer){
-         movementTimer.setDelay(200);
-         }
-         */
     }
 
 }

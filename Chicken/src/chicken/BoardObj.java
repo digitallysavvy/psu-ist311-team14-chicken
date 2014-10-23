@@ -52,7 +52,7 @@ public class BoardObj extends JLabel {
     
     
     // Most board objects move around in some way .
-    public void moveTo(Direction d){
+    public void moveAnimation(Direction d){
         
     }
     

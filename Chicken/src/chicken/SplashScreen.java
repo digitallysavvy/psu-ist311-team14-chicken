@@ -24,8 +24,6 @@
 
 package chicken;
 
-import static com.sun.java.accessibility.util.AWTEventMonitor.addActionListener;
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;

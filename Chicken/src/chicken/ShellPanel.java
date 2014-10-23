@@ -42,10 +42,10 @@ public class ShellPanel extends JPanel{
 
     }
     
-    public void createGameBoard(Image bg){
+    public void createGameBoard(Image bg, Image c){
         int x = this.getRootPane().getParent().getHeight();
         int y = this.getRootPane().getParent().getWidth();
-        gameboard = new GameBoard(x,y,bg);
+        gameboard = new GameBoard(x,y,bg, c);
         add(gameboard);
     }
 }

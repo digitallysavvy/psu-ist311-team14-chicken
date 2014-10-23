@@ -42,7 +42,7 @@ public class MainCharacter extends BoardObj {
      * @param direction
      */
     @Override
-    public void moveTo(Direction direction) {
+    public void moveAnimation(Direction direction) {
         switch (direction) {
             case UP:
                 //Sprite animation here
