@@ -59,9 +59,9 @@ public class StartScreen extends JPanel implements ActionListener{
         characterChooser.setLayout(new GridLayout(3, 1));
 
         //Create Character Choice Buttons
-        greenCharacter = new JButton(new ImageIcon(getClass().getClassLoader().getResource("images/yoshi-green.jpg")));
-        blueCharacter = new JButton(new ImageIcon(getClass().getClassLoader().getResource("images/yoshi-blue.jpg")));
-        yellowCharacter = new JButton(new ImageIcon(getClass().getClassLoader().getResource("images/yoshi-yellow.jpg")));
+        greenCharacter = new JButton(new ImageIcon(getClass().getClassLoader().getResource("images/yoshi.png")));
+        blueCharacter = new JButton(new ImageIcon(getClass().getClassLoader().getResource("images/yoshi-blue.png")));
+        yellowCharacter = new JButton(new ImageIcon(getClass().getClassLoader().getResource("images/yoshi-yellow.png")));
         
         // Add choices to character chooser
         characterChooser.add(greenCharacter);
@@ -101,25 +101,25 @@ public class StartScreen extends JPanel implements ActionListener{
         
         
         if(obj.equals(greenCharacter)){
-            character = new ImageIcon(getClass().getClassLoader().getResource("yoshi.png")).getImage();
+            character = new ImageIcon(getClass().getClassLoader().getResource("images/yoshi.png")).getImage();
             
         }
         else if(obj.equals(blueCharacter)){
-            character = new ImageIcon(getClass().getClassLoader().getResource("yoshi.png")).getImage();
+            character = new ImageIcon(getClass().getClassLoader().getResource("images/yoshi-blue.png")).getImage();
             
         }
         else if(obj.equals(yellowCharacter)){
-            character = new ImageIcon(getClass().getClassLoader().getResource("yoshi.png")).getImage();
+            character = new ImageIcon(getClass().getClassLoader().getResource("images/yoshi-yellow.png")).getImage();
         }
         
         if(obj.equals(streetsBg)){
-            background = new ImageIcon(getClass().getClassLoader().getResource("street-bg.png")).getImage();            
+            background = new ImageIcon(getClass().getClassLoader().getResource("images/street-bg.png")).getImage();            
         }
         else if(obj.equals(conesBg)){
-            background = new ImageIcon(getClass().getClassLoader().getResource("cones-bg.png")).getImage();
+            background = new ImageIcon(getClass().getClassLoader().getResource("images/cones-bg.png")).getImage();
         }
         else if(obj.equals(skiesBg)){
-            background = new ImageIcon(getClass().getClassLoader().getResource("skies-bg.png")).getImage();      
+            background = new ImageIcon(getClass().getClassLoader().getResource("images/skies-bg.png")).getImage();      
         }
         
     }
