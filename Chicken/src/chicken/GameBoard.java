@@ -185,7 +185,9 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener {
 
     public boolean collisionCheck() {
         for (BoardObj enemy : enemies) {
-            return enemy.getBounds().intersects(yoshi.getBounds());
+            if(enemy.getBounds().intersects(yoshi.getBounds())){
+                return true;
+            }
         }
         return false;
     }
@@ -203,7 +205,6 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener {
     public void gameOver() {
 
         if (collisionCheck() == true) {
-
             JLabel gameover = new JLabel("Game Over", SwingConstants.CENTER);
             gameover.setFont(new Font("serif", Font.PLAIN, 36));
 
@@ -216,8 +217,8 @@ public class GameBoard extends JPanel implements ActionListener, KeyListener {
             gameoverFrame.setSize(300, 300);
             gameoverFrame.setLocationRelativeTo(this);
             gameoverFrame.setVisible(true);
+            
         } else if (gameWin() == true) {
-
             JLabel gameover = new JLabel("Game Over", SwingConstants.CENTER);
             gameover.setFont(new Font("serif", Font.PLAIN, 36));
 
